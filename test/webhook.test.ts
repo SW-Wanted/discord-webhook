@@ -50,3 +50,44 @@ test("reports network failures", async () => {
   );
 });
 
+
+test("reports HTTP 400 errors", async () => {
+  const fakeFetch: typeof fetch = async () =>
+    new Response(null, { status: 400 });
+
+  await assert.rejects(
+    sendWebhookMessage("https://example.com/webhook", "Test", fakeFetch),
+    /Invalid request \(HTTP 400\)/,
+  );
+});
+
+test("reports HTTP 401 errors", async () => {
+  const fakeFetch: typeof fetch = async () =>
+    new Response(null, { status: 401 });
+
+  await assert.rejects(
+    sendWebhookMessage("https://example.com/webhook", "Test", fakeFetch),
+    /Authentication rejected \(HTTP 401\)/,
+  );
+});
+
+test("reports HTTP 404 errors", async () => {
+  const fakeFetch: typeof fetch = async () =>
+    new Response(null, { status: 404 });
+
+  await assert.rejects(
+    sendWebhookMessage("https://example.com/webhook", "Test", fakeFetch),
+    /Webhook not found \(HTTP 404\)/,
+  );
+});
+
+test("reports HTTP 500 errors", async () => {
+  const fakeFetch: typeof fetch = async () =>
+    new Response(null, { status: 500 });
+
+  await assert.rejects(
+    sendWebhookMessage("https://example.com/webhook", "Test", fakeFetch),
+    /Discord server error \(HTTP 500\)/,
+  );
+});
+
