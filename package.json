@@ -8,7 +8,9 @@
     "dev": "node --env-file=.env --import=tsx --watch src/index.ts",
     "build": "tsc",
     "start": "node --env-file=.env dist/index.js",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "typecheck:tests": "tsc --noEmit -p tsconfig.test.json",
+    "check": "npm run typecheck && npm run typecheck:tests && npm test && npm run build"
   },
   "repository": {
     "type": "git",
