@@ -4,7 +4,7 @@
   "description": "Learn Discord webhooks and HTTP integration with TypeScript and Node.js.",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "tsx --test test/*.test.ts",
     "dev": "node --env-file=.env --import=tsx --watch src/index.ts",
     "build": "tsc",
     "start": "node --env-file=.env dist/index.js",
